@@ -1,36 +1,15 @@
-import './index.css';
-import headerLogo from './images/header_logo.svg';
+import '../index.css';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
 
 function App() {
   return (
     <div className="page">
       <div className="page__content">
-
-        <header className="header">
-          <img className="header__logo" src={headerLogo} alt="Логотип Mesto Russia" />
-        </header>
-
-        <main className="main-content">
-          <section className="profile">
-            <div className="profile__wrap-avatar">
-              <img className="profile__avatar" src="#" alt="Изображение профиля" />
-            </div>
-            <div className="profile__wrap">
-              <h1 className="profile__name"></h1>
-              <button type="button" className="profile__btn-edit"></button>
-              <p className="profile__text-interests"></p>
-              <button type="button" className="profile__btn-add button"></button>
-            </div>
-          </section>
-
-          <section className="elements">
-
-          </section>
-        </main>
-
-        <footer className="footer">
-          <p className="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
+        <Header />
+        <Main />
+        <Footer />
 
         <div className="popup popup-profile">
           <div className="popup__content">
