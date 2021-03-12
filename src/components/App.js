@@ -23,6 +23,12 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  }
+
   return (
     <div className="page">
       <div className="page__content">
@@ -33,6 +39,7 @@ function App() {
         <PopupWithForm
           name="profile"
           isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
           title="Редактировать профиль"
           titleButton="Сохранить"
         >
@@ -47,6 +54,7 @@ function App() {
         <PopupWithForm
           name="card"
           isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
           title="Новое место"
           titleButton="Создать"
         >
@@ -61,6 +69,7 @@ function App() {
         <PopupWithForm
           name="avatar"
           isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
           title="Обновить аватар"
           titleButton="Сохранить"
         >
@@ -69,16 +78,6 @@ function App() {
           <span id="link-avatar-error" className="popup__input-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm
-          name="avatar"
-          isOpen={isEditAvatarPopupOpen}
-          title="Обновить аватар"
-          titleButton="Сохранить"
-        >
-          <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue="" placeholder="Ссылка на картинку"
-            tabIndex="2" id="link-avatar" required />
-          <span id="link-avatar-error" className="popup__input-error"></span>
-        </PopupWithForm>
 
         {/*
         <div className="popup popup_type_confirm">
