@@ -2,6 +2,11 @@ import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
+// import  {
+//   handleEditAvatarClick,
+//   handleEditProfileClick,
+//   handleAddPlaceClick
+// } from './Main';
 
 function App() {
   return (
@@ -11,7 +16,7 @@ function App() {
         <Main />
         <Footer />
 
-        <div className="popup popup-profile">
+        <div className="popup popup_type_profile">
           <div className="popup__content">
             <h2 className="popup__title">Редактировать профиль</h2>
             <button type="button" className="popup__icon-close"></button>
@@ -27,7 +32,7 @@ function App() {
           </div>
         </div>
 
-        <div className="popup popup-card">
+        <div className="popup popup_type_card">
           <div className="popup__content">
             <h2 className="popup__title">Новое место</h2>
             <button type="button" className="popup__icon-close"></button>
@@ -43,7 +48,7 @@ function App() {
           </div>
         </div>
 
-        <div className="popup popup-avatar">
+        <div className="popup popup_type_avatar">
           <div className="popup__content">
             <h2 className="popup__title">Обновить аватар</h2>
             <button type="button" className="popup__icon-close"></button>
@@ -56,7 +61,7 @@ function App() {
           </div>
         </div>
 
-        <div className="popup popup-image">
+        <div className="popup popup_type_image">
           <div className="popup__image-conteiner">
             <button className="popup__icon-close"></button>
             <img src="#" alt="#" className="popup__pic" />
@@ -64,7 +69,7 @@ function App() {
           </div>
         </div>
 
-        <div className="popup popup-confirm">
+        <div className="popup popup_type_confirm">
           <div className="popup__content">
             <button className="popup__icon-close"></button>
             <h2 className="popup__title">Вы уверены?</h2>
