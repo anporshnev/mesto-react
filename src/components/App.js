@@ -1,74 +1,86 @@
+import React, { useState } from 'react';
 import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-// import  {
-//   handleEditAvatarClick,
-//   handleEditProfileClick,
-//   handleAddPlaceClick
-// } from './Main';
+import PopupWithForm from './PopupWithForm';
 
 function App() {
+
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+
+  const handleEditAvatarClick = () => {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+  }
+
+  const handleEditProfileClick = () => {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  const handleAddPlaceClick = () => {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
   return (
     <div className="page">
       <div className="page__content">
         <Header />
-        <Main />
+        <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
         <Footer />
 
-        <div className="popup popup_type_profile">
-          <div className="popup__content">
-            <h2 className="popup__title">Редактировать профиль</h2>
-            <button type="button" className="popup__icon-close"></button>
-            <form className="popup__form form-profile" name="popup-form" noValidate>
-              <input className="popup__input popup__input_content_username" type="text" name="name" defaultValue="" placeholder="Имя"
-                tabIndex="1" id="username-profile" minLength="2" maxLength="40" required />
-              <span id="username-profile-error" className="popup__input-error"></span>
-              <input className="popup__input popup__input_content_about" type="text" name="about" defaultValue="" placeholder="О себе"
-                tabIndex="2" id="about-profile" minLength="2" maxLength="200" required />
-              <span id="about-profile-error" className="popup__input-error"></span>
-              <button type="submit" className="popup__submit button">Сохранить</button>
-            </form>
-          </div>
-        </div>
+        <PopupWithForm
+          name="profile"
+          isOpen={isEditProfilePopupOpen}
+          title="Редактировать профиль"
+          titleButton="Сохранить"
+        >
+          <input className="popup__input popup__input_content_username" type="text" name="name" defaultValue="" placeholder="Имя"
+            tabIndex="1" id="username-profile" minLength="2" maxLength="40" required />
+          <span id="username-profile-error" className="popup__input-error"></span>
+          <input className="popup__input popup__input_content_about" type="text" name="about" defaultValue="" placeholder="О себе"
+            tabIndex="2" id="about-profile" minLength="2" maxLength="200" required />
+          <span id="about-profile-error" className="popup__input-error"></span>
+        </PopupWithForm>
 
-        <div className="popup popup_type_card">
-          <div className="popup__content">
-            <h2 className="popup__title">Новое место</h2>
-            <button type="button" className="popup__icon-close"></button>
-            <form className="popup__form form-card" name="popup-form" noValidate>
-              <input className="popup__input popup__input_content_place-name" type="text" name="name" defaultValue="" placeholder="Название"
-                tabIndex="1" id="name-card" minLength="2" maxLength="30" required />
-              <span id="name-card-error" className="popup__input-error"></span>
-              <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue="" placeholder="Ссылка на картинку"
-                tabIndex="2" id="link-card" required />
-              <span id="link-card-error" className="popup__input-error"></span>
-              <button type="submit" className="popup__submit button">Создать</button>
-            </form>
-          </div>
-        </div>
+        <PopupWithForm
+          name="card"
+          isOpen={isAddPlacePopupOpen}
+          title="Новое место"
+          titleButton="Создать"
+        >
+          <input className="popup__input popup__input_content_place-name" type="text" name="name" defaultValue="" placeholder="Название"
+            tabIndex="1" id="name-card" minLength="2" maxLength="30" required />
+          <span id="name-card-error" className="popup__input-error"></span>
+          <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue="" placeholder="Ссылка на картинку"
+            tabIndex="2" id="link-card" required />
+          <span id="link-card-error" className="popup__input-error"></span>
+        </PopupWithForm>
 
-        <div className="popup popup_type_avatar">
-          <div className="popup__content">
-            <h2 className="popup__title">Обновить аватар</h2>
-            <button type="button" className="popup__icon-close"></button>
-            <form className="popup__form form-avatar" name="popup-form" noValidate>
-              <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue="" placeholder="Ссылка на картинку"
-                tabIndex="2" id="link-avatar" required />
-              <span id="link-avatar-error" className="popup__input-error"></span>
-              <button type="submit" className="popup__submit button">Сохранить</button>
-            </form>
-          </div>
-        </div>
+        <PopupWithForm
+          name="avatar"
+          isOpen={isEditAvatarPopupOpen}
+          title="Обновить аватар"
+          titleButton="Сохранить"
+        >
+          <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue="" placeholder="Ссылка на картинку"
+            tabIndex="2" id="link-avatar" required />
+          <span id="link-avatar-error" className="popup__input-error"></span>
+        </PopupWithForm>
 
-        <div className="popup popup_type_image">
-          <div className="popup__image-conteiner">
-            <button className="popup__icon-close"></button>
-            <img src="#" alt="#" className="popup__pic" />
-            <h3 className="popup__pic-title">#</h3>
-          </div>
-        </div>
+        <PopupWithForm
+          name="avatar"
+          isOpen={isEditAvatarPopupOpen}
+          title="Обновить аватар"
+          titleButton="Сохранить"
+        >
+          <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue="" placeholder="Ссылка на картинку"
+            tabIndex="2" id="link-avatar" required />
+          <span id="link-avatar-error" className="popup__input-error"></span>
+        </PopupWithForm>
 
+        {/*
         <div className="popup popup_type_confirm">
           <div className="popup__content">
             <button className="popup__icon-close"></button>
@@ -77,7 +89,7 @@ function App() {
               <button type="submit" className="popup__submit popup__confirm-button button">Да</button>
             </form>
           </div>
-        </div>
+        </div> */}
 
       </div>
     </div>

@@ -1,27 +1,15 @@
-function handleEditAvatarClick() {
-  document.querySelector('.popup_type_avatar').classList.add('popup_open');
-}
-
-function handleEditProfileClick() {
-  document.querySelector('.popup-profile').classList.add('popup_open');
-}
-
-function handleAddPlaceClick() {
-  document.querySelector('.popup-card').classList.add('popup_open');
-}
-
-function Main() {
+function Main(props) {
   return (
     <main className="main-content">
       <section className="profile">
-        <div className="profile__wrap-avatar" onClick={handleEditAvatarClick}>
+        <div className="profile__wrap-avatar" onClick={props.onEditAvatar}>
           <img className="profile__avatar" src="#" alt="Изображение профиля" />
         </div>
         <div className="profile__wrap">
           <h1 className="profile__name"></h1>
-          <button type="button" className="profile__btn-edit" onClick={handleEditProfileClick}></button>
+          <button type="button" className="profile__btn-edit" onClick={props.onEditProfile}></button>
           <p className="profile__text-interests"></p>
-          <button type="button" className="profile__btn-add button" onClick={handleAddPlaceClick}></button>
+          <button type="button" className="profile__btn-add button" onClick={props.onAddPlace}></button>
         </div>
       </section>
 
@@ -33,8 +21,3 @@ function Main() {
 }
 
 export default Main;
-export {
-  handleEditAvatarClick,
-  handleEditProfileClick,
-  handleAddPlaceClick
-}
