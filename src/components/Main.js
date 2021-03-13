@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from '../utils/api.js';
-import Card from './Card.js';
+import api from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
 
@@ -64,6 +64,7 @@ function Main(props) {
               link={item.link}
               name={item.name}
               likes={item.likes}
+              onCardClick={(data) => props.handleCardClick(data)}
             />
           )
         }

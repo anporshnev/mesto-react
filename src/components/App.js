@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import '../index.css';
-import Header from './Header.js';
-import Main from './Main.js';
-import Footer from './Footer.js';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+
+  const handleCardClick = (data) => {
+    setSelectedCard(data);
+  }
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
@@ -27,14 +33,22 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard({})
   }
 
   return (
     <div className="page">
       <div className="page__content">
         <Header />
-        <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
+        <Main
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          handleCardClick={handleCardClick}
+        />
         <Footer />
+
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
         <PopupWithForm
           name="profile"
@@ -77,6 +91,8 @@ function App() {
             tabIndex="2" id="link-avatar" required />
           <span id="link-avatar-error" className="popup__input-error"></span>
         </PopupWithForm>
+
+
 
 
         {/*
