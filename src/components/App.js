@@ -47,9 +47,7 @@ function App() {
           handleCardClick={handleCardClick}
         />
         <Footer />
-
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
         <PopupWithForm
           name="profile"
           isOpen={isEditProfilePopupOpen}
@@ -64,7 +62,6 @@ function App() {
             tabIndex="2" id="about-profile" minLength="2" maxLength="200" required />
           <span id="about-profile-error" className="popup__input-error"></span>
         </PopupWithForm>
-
         <PopupWithForm
           name="card"
           isOpen={isAddPlacePopupOpen}
@@ -79,7 +76,6 @@ function App() {
             tabIndex="2" id="link-card" required />
           <span id="link-card-error" className="popup__input-error"></span>
         </PopupWithForm>
-
         <PopupWithForm
           name="avatar"
           isOpen={isEditAvatarPopupOpen}
@@ -91,21 +87,13 @@ function App() {
             tabIndex="2" id="link-avatar" required />
           <span id="link-avatar-error" className="popup__input-error"></span>
         </PopupWithForm>
-
-
-
-
-        {/*
-        <div className="popup popup_type_confirm">
-          <div className="popup__content">
-            <button className="popup__icon-close"></button>
-            <h2 className="popup__title">Вы уверены?</h2>
-            <form className="form-card" name="popup-form" noValidate>
-              <button type="submit" className="popup__submit popup__confirm-button button">Да</button>
-            </form>
-          </div>
-        </div> */}
-
+        <PopupWithForm
+          name="confirm"
+          onClose={closeAllPopups}
+          title="Вы уверены?"
+          titleButton="Да"
+        >
+        </PopupWithForm>
       </div>
     </div>
   );
