@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api.js';
+import Card from './Card.js';
 
 function Main(props) {
 
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
   const errorApi = err => {
     console.error(err);
@@ -22,6 +24,24 @@ function Main(props) {
       .catch(errorApi)
   })
 
+  useEffect(() => {
+    api
+      .getCardList()
+      .then(data => {
+        const cardsList = data.map(item => {
+          return {
+            name: item.name,
+            link: item.link,
+            idCard: item._id,
+            idOwner: item.owner._id,
+            likes: item.likes.length
+          }
+        })
+        setCards(cardsList)
+      })
+      .catch(errorApi)
+  }, [])
+
   return (
     <main className="main-content">
       <section className="profile">
@@ -37,7 +57,16 @@ function Main(props) {
       </section>
 
       <section className="elements">
-
+        {
+          cards.map(item =>
+            <Card
+              key={item.idCard}
+              link={item.link}
+              name={item.name}
+              likes={item.likes}
+            />
+          )
+        }
       </section>
     </main>
   )
