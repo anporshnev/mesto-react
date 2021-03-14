@@ -28,16 +28,7 @@ function Main(props) {
     api
       .getCardList()
       .then(data => {
-        const cardsList = data.map(item => {
-          return {
-            name: item.name,
-            link: item.link,
-            idCard: item._id,
-            idOwner: item.owner._id,
-            likes: item.likes.length
-          }
-        })
-        setCards(cardsList)
+        setCards(data)
       })
       .catch(errorApi)
   }, [])
@@ -60,10 +51,10 @@ function Main(props) {
         {
           cards.map(item =>
             <Card
-              key={item.idCard}
+              key={item._id}
               link={item.link}
               name={item.name}
-              likes={item.likes}
+              likes={item.likes.length}
               onCardClick={(data) => props.handleCardClick(data)}
             />
           )
