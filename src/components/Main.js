@@ -22,7 +22,7 @@ function Main(props) {
         setUserAvatar(data.avatar)
       })
       .catch(errorApi)
-  })
+  }, [])
 
   useEffect(() => {
     api
