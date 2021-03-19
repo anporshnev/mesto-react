@@ -13,6 +13,23 @@ function Main(props) {
     console.error(err);
     };
 
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some(item => item._id === currentUser._id);
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then(newCard => {
+        setCards(state => state.map(item => item._id === card._id ? newCard : item))
+      });
+  }
+
+  const handleCardDelete = (card) => {
+    api
+      .removeCard(card._id)
+      .then(res => {
+        res && setCards(cards => cards.filter(item => item._id !== card._id))
+      });
+  }
+
   useEffect(() => {
     api
       .getCardList()
@@ -43,6 +60,8 @@ function Main(props) {
               key={item._id}
               card={item}
               onCardClick={(data) => props.handleCardClick(data)}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           )
         }
