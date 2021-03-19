@@ -41,9 +41,7 @@ function Main(props) {
           cards.map(item =>
             <Card
               key={item._id}
-              link={item.link}
-              name={item.name}
-              likes={item.likes.length}
+              card={item}
               onCardClick={(data) => props.handleCardClick(data)}
             />
           )
