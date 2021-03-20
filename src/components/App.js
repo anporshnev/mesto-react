@@ -7,6 +7,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
 
@@ -46,6 +47,16 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  const handleUpdateUser = (data) => {
+    api
+      .saveUserInfoServ(data)
+      .then(newData => {
+        setCurrentUser(newData)
+        closeAllPopups()
+      })
+      .catch(errorApi)
+  }
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -65,23 +76,15 @@ function App() {
             handleCardClick={handleCardClick}
           />
           <Footer />
+
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <PopupWithForm
-            name="profile"
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            title="Редактировать профиль"
-            titleButton="Сохранить"
-          >
-            <input className="popup__input popup__input_content_username" type="text" name="name" defaultValue=""
-            placeholder="Имя"
-              tabIndex="1" id="username-profile" minLength="2" maxLength="40" required />
-            <span id="username-profile-error" className="popup__input-error"></span>
-            <input className="popup__input popup__input_content_about" type="text" name="about" defaultValue=""
-            placeholder="О себе"
-              tabIndex="2" id="about-profile" minLength="2" maxLength="200" required />
-            <span id="about-profile-error" className="popup__input-error"></span>
-          </PopupWithForm>
+
+          <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}>
+          </EditProfilePopup>
+
           <PopupWithForm
             name="card"
             isOpen={isAddPlacePopupOpen}
