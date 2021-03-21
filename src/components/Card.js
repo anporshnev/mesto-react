@@ -17,7 +17,10 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
   );
 
   const handleClick = () => {
-    onCardClick({link: card.link, name: card.name})
+    onCardClick({
+      link: card.link,
+      name: card.name,
+    })
   }
 
   const handleLikeClick = () => {
@@ -25,8 +28,9 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
   }
 
   const handleDeleteClick = () => {
-    onCardDelete(card);
+    onCardDelete(card._id)
   }
+
 
   return (
     <div className="card">

@@ -28,7 +28,7 @@ function Main(props) {
               card={item}
               onCardClick={(data) => props.handleCardClick(data)}
               onCardLike={props.onCardLike}
-              onCardDelete={props.onCardDelete}
+              onCardDelete={(data) => props.handleDeleteClick(data)}
             />
           )
         }
