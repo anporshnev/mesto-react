@@ -32,16 +32,16 @@ function EditProfilePopup ({isOpen, onClose, onUpdateUser}) {
       titleButton="Сохранить"
     >
       <input className="popup__input popup__input_content_username" type="text" name="name" placeholder="Имя"
-      tabIndex="1" id="username-profile" minLength="2" maxLength="40" required
-      defaultValue={name}
-      onChange={e => setName(e.target.value)}
+        tabIndex="1" id="username-profile" minLength="2" maxLength="40" required
+        defaultValue={name}
+        onChange={e => setName(e.target.value)}
       />
       <span id="username-profile-error" className="popup__input-error"></span>
       <input className="popup__input popup__input_content_about" type="text" name="about" placeholder="О себе"
         tabIndex="2" id="about-profile" minLength="2" maxLength="200" required
         defaultValue={description}
         onChange={e => setDescription(e.target.value)}
-        />
+      />
       <span id="about-profile-error" className="popup__input-error"></span>
     </PopupWithForm>
   )

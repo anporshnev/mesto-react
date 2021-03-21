@@ -8,10 +8,13 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -27,6 +30,15 @@ function App() {
       .getUserInfoServ()
       .then(data => {
         setCurrentUser(data)
+      })
+      .catch(errorApi)
+  }, [])
+
+  useEffect(() => {
+    api
+      .getCardList()
+      .then(data => {
+        setCards(data)
       })
       .catch(errorApi)
   }, [])
@@ -57,6 +69,45 @@ function App() {
       .catch(errorApi)
   }
 
+  const handleUpdateAvatar = (link) => {
+    api
+      .updateAvatar(link)
+      .then(newData => {
+        setCurrentUser(newData)
+        closeAllPopups()
+      })
+      .catch(errorApi)
+  }
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some(item => item._id === currentUser._id);
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then(newCard => {
+        setCards(state => state.map(item => item._id === card._id ? newCard : item))
+      })
+      .catch(errorApi)
+  }
+
+  const handleAddPlaceSubmit = (card) => {
+    api
+      .saveNewCard(card)
+      .then(newCard => {
+        setCards([newCard, ...cards])
+        closeAllPopups()
+      })
+      .catch(errorApi)
+  }
+
+  const handleCardDelete = (card) => {
+    api
+      .removeCard(card._id)
+      .then(res => {
+        res && setCards(cards => cards.filter(item => item._id !== card._id))
+      })
+      .catch(errorApi)
+  }
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -69,50 +120,40 @@ function App() {
       <div className="page__content">
         <CurrentUserContext.Provider value={currentUser}>
           <Header />
+
           <Main
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
             onAddPlace={handleAddPlaceClick}
             handleCardClick={handleCardClick}
+            cards={cards}
           />
+
           <Footer />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
           <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}>
-          </EditProfilePopup>
-
-          <PopupWithForm
-            name="card"
-            isOpen={isAddPlacePopupOpen}
+            isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            title="Новое место"
-            titleButton="Создать"
-          >
-            <input className="popup__input popup__input_content_place-name" type="text" name="name" defaultValue=""
-            placeholder="Название"
-              tabIndex="1" id="name-card" minLength="2" maxLength="30" required />
-            <span id="name-card-error" className="popup__input-error"></span>
-            <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue=""
-            placeholder="Ссылка на картинку"
-              tabIndex="2" id="link-card" required />
-            <span id="link-card-error" className="popup__input-error"></span>
-          </PopupWithForm>
-          <PopupWithForm
-            name="avatar"
+            onUpdateUser={handleUpdateUser}
+          />
+
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-            title="Обновить аватар"
-            titleButton="Сохранить"
-          >
-            <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue=""
-            placeholder="Ссылка на картинку"
-              tabIndex="2" id="link-avatar" required />
-            <span id="link-avatar-error" className="popup__input-error"></span>
-          </PopupWithForm>
+            onUpdateAvatar={handleUpdateAvatar}
+          />
+
+
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+          />
+
           <PopupWithForm
             name="confirm"
             onClose={closeAllPopups}
