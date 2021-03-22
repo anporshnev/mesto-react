@@ -66,8 +66,6 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
-
-
   const handleUpdateUser = (data) => {
     api
       .saveUserInfoServ(data)
@@ -122,9 +120,9 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setIsConfirmPopupOpen(false)
-    setSelectedCard({})
-    setSelectedDelCard('')
+    setIsConfirmPopupOpen(false);
+    setSelectedCard({});
+    setSelectedDelCard('');
   }
 
   return (
