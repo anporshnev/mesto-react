@@ -1,16 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({isOpen, onClose, onAddPlace}) {
 
   const [name, setName] = useState('');
-  const urlRef = useRef();
+  const [link, setLink] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
     onAddPlace({
       name,
-      link: urlRef.current.value
+      link
     });
   }
 
@@ -25,13 +25,14 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
     >
       <input className="popup__input popup__input_content_place-name" type="text" name="name" placeholder="Название"
         tabIndex="1" id="name-card" minLength="2" maxLength="30" required
-        defaultValue={name}
+        value={name}
         onChange={e => setName(e.target.value)}
       />
       <span id="name-card-error" className="popup__input-error"></span>
-      <input className="popup__input popup__input_content_image-link" type="url" name="link" defaultValue=""
+      <input className="popup__input popup__input_content_image-link" type="url" name="link"
         placeholder="Ссылка на картинку" tabIndex="2" id="link-card" required
-        ref={urlRef}
+        value={link}
+        onChange={e => setLink(e.target.value)}
         />
       <span id="link-card-error" className="popup__input-error"></span>
     </PopupWithForm>
